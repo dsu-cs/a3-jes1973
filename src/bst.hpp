@@ -3,6 +3,7 @@
 // include this library to use NULL, otherwise use nullptr instead
 #include <cstddef>
 #include <iostream>
+#include <vector>
 #include "node.hpp"
 
 template<class T>
@@ -42,13 +43,15 @@ private:
     int node_count;
 };
 
+// bst constructor
 template<class T>
 BST<T>::BST()
 {
     root = NULL;
     node_count = 0;
-}
+}// end bst constructor
 
+// bst destructor
 template<class T>
 BST<T>::~BST()
 {
@@ -57,23 +60,47 @@ BST<T>::~BST()
     {
         remove(root->get_data());
     }
-}
+}// end bst destructor
+
 
 template<class T>
  std::vector<T> * BST<T>::inorder()
 {
     std::vector<T> *vec = new std::vector<T>;
 
+
+
+/*
+if(index < SIZE)
+    {
+        inorder(2*index);   // recurse to the left sub tree
+        cout << " " << tree[index];
+        inorder(2*index + 1);   // recurse to the right sub tree
+    }// end if
+*/
     return vec;
 }
+
 
 
 template<class T>
  std::vector<T> * BST<T>::preorder()
 {
     std::vector<T> *vec = new std::vector<T>;
+
+/*
+ if(index < SIZE)
+        {
+            cout << " " << tree[index];
+            preorder(2*index);   // recurse to the left sub tree
+            preorder(2*index + 1);   // recurse to the right sub tree
+        }// end if
+*/
+
+
     return vec;
 }
+
 
 
 template<class T>
@@ -81,14 +108,36 @@ template<class T>
 {
     std::vector<T> *vec = new std::vector<T>;
 
+/*
+if(index < SIZE)
+        {
+            postorder(2*index);   // recurse to the left sub tree
+            postorder(2*index + 1);   // recurse to the right sub tree
+            cout << " " << tree[index];
+        }// end if
+*/
+
+
+
+
     return vec;
 }
+
 
 template<class T>
 void BST<T>::insert(T new_data)
 {
 
+/*
+ // fill the array
+    for(i = 1; i < SIZE; i++)
+    {
+        tree[i] = i;
+    }// end for- array filled
+*/
+
 }
+
 
 
 template<class T>
@@ -96,6 +145,7 @@ Node<T> *BST<T>::search(T val)
 {
 
 }
+
 
 
 
