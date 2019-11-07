@@ -62,21 +62,45 @@ BST<T>::~BST()
     }
 }// end bst destructor
 
+template<class T>
+void BST<T>::insert(T new_data)
+{
+    Node* currNode = new Node;
+    currNode = root;
+
+    if(root == NULL)
+    {
+        root->set_data(new_data);
+        root->set_left(NULL);
+        root->set_right(NULL);
+        node_count++;
+    }// end if create root
+        else if(new_data < currNode->get_data())   // insert to the left
+            {
+                currNode
+
+            }// end insert left
+                else    // insert to the right
+                {
+
+                }// end insert right
+    
+}// end insert function
 
 template<class T>
  std::vector<T> * BST<T>::inorder()
 {
     std::vector<T> *vec = new std::vector<T>;
-
-
-
-/*
-if(index < SIZE)
+    int index = 0;
+   
+   /*
+    if(index < vec.size())
     {
-        inorder(2*index);   // recurse to the left sub tree
-        cout << " " << tree[index];
-        inorder(2*index + 1);   // recurse to the right sub tree
-    }// end if
+        inorder(2*index);   // recurse to left subtree
+        cout << " " << vec[index]
+        inorder(2*index+1)  // recurse to ri9ght subtree
+        return vec;
+    }// end inorder function
 */
     return vec;
 }
@@ -124,19 +148,6 @@ if(index < SIZE)
 }
 
 
-template<class T>
-void BST<T>::insert(T new_data)
-{
-
-/*
- // fill the array
-    for(i = 1; i < SIZE; i++)
-    {
-        tree[i] = i;
-    }// end for- array filled
-*/
-
-}
 
 
 
