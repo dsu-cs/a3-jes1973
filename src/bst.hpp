@@ -65,26 +65,36 @@ BST<T>::~BST()
 template<class T>
 void BST<T>::insert(T new_data)
 {
-    Node* currNode = new Node;
-    currNode = root;
-
+    Node<T> *nodeToInsert = new Node<T>(new_data);
     if(root == NULL)
     {
-        root->set_data(new_data);
-        root->set_left(NULL);
-        root->set_right(NULL);
+        root = nodeToInsert; 
         node_count++;
     }// end if create root
-        else if(new_data < currNode->get_data())   // insert to the left
-            {
-                currNode
-
-            }// end insert left
-                else    // insert to the right
-                {
-
-                }// end insert right
-    
+    if(new_data < root->get_data())
+    {
+        if(root->get_left() != NULL)
+        {
+            insert(root->set_left(nodeToInsert));
+        }
+        else
+        {
+            root->set_left(nodeToInsert);
+            node_count++;
+        }
+    }
+    else if(new_data > root->get_data())
+    {
+        if(root->get_right() != NULL)
+        {
+            insert(root->set_right(nodeToInsert));
+        }
+        else
+        {
+            root->set_right(nodeToInsert);
+            node_count++;
+        }
+    }
 }// end insert function
 
 template<class T>
@@ -141,22 +151,15 @@ if(index < SIZE)
         }// end if
 */
 
-
-
-
     return vec;
 }
-
-
-
 
 
 template<class T>
 Node<T> *BST<T>::search(T val)
 {
-
+    return 0;
 }
-
 
 
 
@@ -167,9 +170,9 @@ void BST<T>::remove(T val)
 }
 
 
-
 template<class T>
 int BST<T>::get_size()
 {
 
+    return 0;
 }
