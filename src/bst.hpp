@@ -42,6 +42,7 @@ private:
     // the number of nodes in the tree
     int node_count;
     Node<T>* insertHelper(int, Node<T>*);
+    void inorderHelper(Node<T>*);
 };
 
 // bst constructor
@@ -96,40 +97,41 @@ Node<T>* BST<T>::insertHelper(int data, Node<T>* currNode)
     return currNode;    // catch all other cases
 }// end insertHelper function
 
-
+// inorder function to call inorderHelper function for recursion
 template<class T>
- std::vector<T> * BST<T>::inorder()
+std::vector<T> * BST<T>::inorder()
 {
     std::vector<T> *vec = new std::vector<T>;
-    int index = 0;
-   
-   /*
-    if(index < vec.size())
+    /*
+    Node<T>* currNode = new Node<T>;
+    currNode = root;
+    while(currNode != NULL)
     {
-        inorder(2*index);   // recurse to left subtree
-        cout << " " << vec[index]
-        inorder(2*index+1)  // recurse to ri9ght subtree
-        return vec;
-    }// end inorder function
-*/
-    return vec;
-}
 
+    }
+    */
+    // xxxxx inorderHelper(root);
+    return vec;
+}// end of inorder function
+
+// inorderHelper function to conduct the recursive ordering
+template<class T>
+void BST<T>::inorderHelper(Node<T>* currNode)
+{
+    if(currNode != NULL)
+    {
+        inorderHelper(currNode->get_left());
+        //put data in vector
+        inorderHelper(currNode->get_right());
+    }
+
+}// end of inorderHelper function
 
 
 template<class T>
  std::vector<T> * BST<T>::preorder()
 {
     std::vector<T> *vec = new std::vector<T>;
-
-/*
- if(index < SIZE)
-        {
-            cout << " " << tree[index];
-            preorder(2*index);   // recurse to the left sub tree
-            preorder(2*index + 1);   // recurse to the right sub tree
-        }// end if
-*/
 
 
     return vec;
@@ -142,14 +144,6 @@ template<class T>
 {
     std::vector<T> *vec = new std::vector<T>;
 
-/*
-if(index < SIZE)
-        {
-            postorder(2*index);   // recurse to the left sub tree
-            postorder(2*index + 1);   // recurse to the right sub tree
-            cout << " " << tree[index];
-        }// end if
-*/
 
     return vec;
 }
@@ -173,6 +167,5 @@ void BST<T>::remove(T val)
 template<class T>
 int BST<T>::get_size()
 {
-
-    return 0;
+    return node_count;
 }
