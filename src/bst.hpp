@@ -41,6 +41,7 @@ private:
     Node<T> *root;
     // the number of nodes in the tree
     int node_count;
+    Node<T>* insertHelper(int, Node<T>*);
 };
 
 // bst constructor
@@ -65,37 +66,28 @@ BST<T>::~BST()
 template<class T>
 void BST<T>::insert(T new_data)
 {
-    Node<T> *nodeToInsert = new Node<T>(new_data);
-    if(root == NULL)
-    {
-        root = nodeToInsert; 
-        node_count++;
-    }// end if create root
-    if(new_data < root->get_data())
-    {
-        if(root->get_left() != NULL)
-        {
-            insert(root->set_left(nodeToInsert));
-        }
-        else
-        {
-            root->set_left(nodeToInsert);
-            node_count++;
-        }
-    }
-    else if(new_data > root->get_data())
-    {
-        if(root->get_right() != NULL)
-        {
-            insert(root->set_right(nodeToInsert));
-        }
-        else
-        {
-            root->set_right(nodeToInsert);
-            node_count++;
-        }
-    }
+    root = insertHelper(new_data, root);
 }// end insert function
+
+// insertHelper function to conduct the recursive insertion
+template<class T>
+Node<T>* BST<T>::insertHelper(int data, Node<T>* node)
+{
+    if(node == NULL)
+    {
+        Node<T>* tmp = new Node<T>;
+        tmp->set_data(data);
+        tmp->set_left(NULL);
+        tmp->set_right(NULL);
+        return tmp;
+    }
+    else
+    {
+        node->set_left(insertHelper(data, node->get_left()));
+    }
+    return node;
+}// end insertHelper function
+
 
 template<class T>
  std::vector<T> * BST<T>::inorder()
