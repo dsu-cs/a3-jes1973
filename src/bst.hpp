@@ -63,6 +63,7 @@ BST<T>::~BST()
     }
 }// end bst destructor
 
+// insert function to call recursive helper function
 template<class T>
 void BST<T>::insert(T new_data)
 {
@@ -71,21 +72,28 @@ void BST<T>::insert(T new_data)
 
 // insertHelper function to conduct the recursive insertion
 template<class T>
-Node<T>* BST<T>::insertHelper(int data, Node<T>* node)
+Node<T>* BST<T>::insertHelper(int data, Node<T>* currNode)
 {
-    if(node == NULL)
+    // if tree is empty- create a new node and return it
+    if(currNode == NULL)
     {
         Node<T>* tmp = new Node<T>;
         tmp->set_data(data);
         tmp->set_left(NULL);
         tmp->set_right(NULL);
         return tmp;
-    }
-    else
-    {
-        node->set_left(insertHelper(data, node->get_left()));
-    }
-    return node;
+    }// new node created and returned
+    // if new data is less than currNode data move left
+    else if(data < currNode->get_data())
+        {
+            currNode->set_left(insertHelper(data, currNode->get_left()));
+        }// end left
+        // if new data is greater than currNode data move right
+        else
+        {
+            currNode->set_right(insertHelper(data, currNode->get_right()));
+        }// end right
+    return currNode;    // catch all other cases
 }// end insertHelper function
 
 
