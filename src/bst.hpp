@@ -42,7 +42,7 @@ private:
     // the number of nodes in the tree
     int node_count;
     Node<T>* insertHelper(int, Node<T>*);
-    void inorderHelper(Node<T>*);
+    void inorderHelper(std::vector<T>*, Node<T>*);
 };
 
 // bst constructor
@@ -102,27 +102,21 @@ template<class T>
 std::vector<T> * BST<T>::inorder()
 {
     std::vector<T> *vec = new std::vector<T>;
-    /*
-    Node<T>* currNode = new Node<T>;
-    currNode = root;
-    while(currNode != NULL)
-    {
 
-    }
-    */
-    // xxxxx inorderHelper(root);
+    inorderHelper(vec, root);
+
     return vec;
 }// end of inorder function
 
 // inorderHelper function to conduct the recursive ordering
 template<class T>
-void BST<T>::inorderHelper(Node<T>* currNode)
+void BST<T>::inorderHelper(std::vector<T>* vec, Node<T>* currNode)
 {
     if(currNode != NULL)
     {
-        inorderHelper(currNode->get_left());
-        //put data in vector
-        inorderHelper(currNode->get_right());
+        inorderHelper(vec, currNode->get_left());
+        vec->push_back(currNode->get_data());
+        inorderHelper(vec, currNode->get_right());
     }
 
 }// end of inorderHelper function
