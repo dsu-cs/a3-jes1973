@@ -72,6 +72,7 @@ template<class T>
 void BST<T>::insert(T new_data)
 {
     root = insertHelper(new_data, root);
+    cout<<"count "<<node_count<<endl;
 }// end insert function
 
 // insertHelper function to conduct the recursive insertion
@@ -85,6 +86,7 @@ Node<T>* BST<T>::insertHelper(int data, Node<T>* currNode)
         tmp->set_data(data);
         tmp->set_left(NULL);
         tmp->set_right(NULL);
+        node_count++;
         return tmp;
     }// new node created and returned
     // if new data is less than currNode data move left
