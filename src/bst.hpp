@@ -104,7 +104,7 @@ Node<T>* BST<T>::insertHelper(int data, Node<T>* currNode)
 template<class T>
 std::vector<T> * BST<T>::inorder()
 {
-    std::vector<T> *vec = new std::vector<T>;
+    std::vector<T> *vec = new std::vector<T>;   // vector to store the list
     inorderHelper(vec, root);
     return vec;
 }// end of inorder function
@@ -115,18 +115,17 @@ void BST<T>::inorderHelper(std::vector<T>* vec, Node<T>* currNode)
 {
     if(currNode != NULL)
     {
-        inorderHelper(vec, currNode->get_left());
-        vec->push_back(currNode->get_data());
-        inorderHelper(vec, currNode->get_right());
-    }
-
+        inorderHelper(vec, currNode->get_left());   // recurse to the left child
+        vec->push_back(currNode->get_data());       // append the parent data to the vector
+        inorderHelper(vec, currNode->get_right());  // recurse to the right child
+    }// end if
 }// end of inorderHelper function
 
 // preorder function to call preorderHelper for recursion
 template<class T>
 std::vector<T> * BST<T>::preorder()
 {
-    std::vector<T> *vec = new std::vector<T>;
+    std::vector<T> *vec = new std::vector<T>;   // vector to store the list
     preorderHelper(vec, root);
     return vec;// end of preorder function
 }// end preorder function
@@ -137,26 +136,32 @@ void BST<T>::preorderHelper(std::vector<T>* vec, Node<T>* currNode)
 {
     if(currNode != NULL)
     {
-        vec->push_back(currNode->get_data());
-        inorderHelper(vec, currNode->get_left());
-        inorderHelper(vec, currNode->get_right());
-    }
+        vec->push_back(currNode->get_data());       // append the parent data to the vector
+        preorderHelper(vec, currNode->get_left());  // recurse to the left child
+        preorderHelper(vec, currNode->get_right()); // recurse to the right child
+    }// end if
 }// end preorderHelper function
 
+// postorder function to call postorderHelper for recursion
 template<class T>
  std::vector<T> * BST<T>::postorder()
 {
-    std::vector<T> *vec = new std::vector<T>;
-
-
+    std::vector<T> *vec = new std::vector<T>;   // vector to store the list
+    postorderHelper(vec, root);
     return vec;
-}
+}// end of postorder function
 
+// postorderHelper function to conduct the recursive ordering
 template<class T>
-void BST<T>::postorderHelper(std::vector<T>* vec, Node<T>*)
+void BST<T>::postorderHelper(std::vector<T>* vec, Node<T>* currNode)
 {
-
-}
+  if(currNode != NULL)
+    {
+        postorderHelper(vec, currNode->get_left());     // recurse to the left child
+        postorderHelper(vec, currNode->get_right());    // recurse to the right child
+        vec->push_back(currNode->get_data());           // append the parent data to the vector
+    }// end if
+}// end of postorderHelper function
 
 template<class T>
 Node<T> *BST<T>::search(T val)
