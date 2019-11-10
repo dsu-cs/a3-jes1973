@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include "node.hpp"
+using namespace std;
 
 template<class T>
 class BST{
@@ -43,6 +44,8 @@ private:
     int node_count;
     Node<T>* insertHelper(int, Node<T>*);
     void inorderHelper(std::vector<T>*, Node<T>*);
+    void preorderHelper(std::vector<T>*, Node<T>*);
+    void postorderHelper(std::vector<T>*, Node<T>*);
 };
 
 // bst constructor
@@ -102,9 +105,7 @@ template<class T>
 std::vector<T> * BST<T>::inorder()
 {
     std::vector<T> *vec = new std::vector<T>;
-
     inorderHelper(vec, root);
-
     return vec;
 }// end of inorder function
 
@@ -121,17 +122,26 @@ void BST<T>::inorderHelper(std::vector<T>* vec, Node<T>* currNode)
 
 }// end of inorderHelper function
 
-
+// preorder function to call preorderHelper for recursion
 template<class T>
- std::vector<T> * BST<T>::preorder()
+std::vector<T> * BST<T>::preorder()
 {
     std::vector<T> *vec = new std::vector<T>;
+    preorderHelper(vec, root);
+    return vec;// end of preorder function
+}// end preorder function
 
-
-    return vec;
-}
-
-
+// preorderHelper function to conduct the recursive ordering
+template<class T>
+void BST<T>::preorderHelper(std::vector<T>* vec, Node<T>* currNode)
+{
+    if(currNode != NULL)
+    {
+        vec->push_back(currNode->get_data());
+        inorderHelper(vec, currNode->get_left());
+        inorderHelper(vec, currNode->get_right());
+    }
+}// end preorderHelper function
 
 template<class T>
  std::vector<T> * BST<T>::postorder()
@@ -142,6 +152,11 @@ template<class T>
     return vec;
 }
 
+template<class T>
+void BST<T>::postorderHelper(std::vector<T>* vec, Node<T>*)
+{
+
+}
 
 template<class T>
 Node<T> *BST<T>::search(T val)
