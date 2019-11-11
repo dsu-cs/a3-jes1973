@@ -46,6 +46,7 @@ private:
     void inorderHelper(std::vector<T>*, Node<T>*);
     void preorderHelper(std::vector<T>*, Node<T>*);
     void postorderHelper(std::vector<T>*, Node<T>*);
+    Node<T>* searchHelper(T, Node<T>*);
 };
 
 // bst constructor
@@ -165,17 +166,49 @@ void BST<T>::postorderHelper(std::vector<T>* vec, Node<T>* currNode)
     }// end if
 }// end of postorderHelper function
 
+// search function to call searchHelper for recursive search
 template<class T>
-Node<T> *BST<T>::search(T val)
+Node<T>* BST<T>::search(T val)
 {
-    return 0;
-}
+    return searchHelper(val, root);
+}// end of search function
 
-
+// searchHelper function to conduct recursive search
+template<class T>
+Node<T>* BST<T>::searchHelper(T valToFind, Node<T>* currNode)
+{
+    if(currNode == NULL)
+    {
+        return currNode;
+    }// end if empty
+    else if(valToFind < currNode->get_data())   // search left subtree
+        {
+            return searchHelper(valToFind, currNode->get_left());
+        }// end else if search left
+        else if(valToFind > currNode->get_data())   // search right subtree
+            {
+                return searchHelper(valToFind, currNode->get_right());
+            }// end else if search right
+    return currNode;
+}// end of searchHelper function
 
 template<class T>
 void BST<T>::remove(T val)
 {
+
+//find the node
+    //if node has 0 children
+        //delete node
+
+    //if node has 1 child
+        //connect parent to next child 
+        //delete node
+
+    //if node has 2 children
+        //find largest num in left subtree
+        // or
+        //find smallest num in right subtree
+            //move to the node
 
 }
 
