@@ -47,6 +47,7 @@ private:
     void preorderHelper(std::vector<T>*, Node<T>*);
     void postorderHelper(std::vector<T>*, Node<T>*);
     Node<T>* searchHelper(T, Node<T>*);
+    void removeHelper(T, Node<T>*);
 };
 
 // bst constructor
@@ -192,25 +193,55 @@ Node<T>* BST<T>::searchHelper(T valToFind, Node<T>* currNode)
     return currNode;
 }// end of searchHelper function
 
+// remove function to call removeHelper for recursive steps
 template<class T>
 void BST<T>::remove(T val)
 {
+    removeHelper(val, root);
+}// end of remove function
 
-//find the node
-    //if node has 0 children
-        //delete node
+// removeHelper function to recursively traverse the tree to remove the node
+template<class T>
+void BST<T>::removeHelper(T valToRemove, Node<T>* currNode)
+{
+    // node has 0 children
+    if( (search(valToRemove)->get_left() == NULL) && (search(valToRemove)->get_right() == NULL) );
+    {
+        delete currNode;
+        currNode = NULL;
+        node_count = 0;
+    }// end if node has 0 children
+    // node has 1 child
+    else if(search(valToRemove)->get_left() == NULL)
+        {   // if left child is NULL move right
+            currNode->set_data(currNode->get_right()->get_data());
+            delete currNode->get_right();
+            currNode->set_right(NULL);
+            node_count--;
+        }// end else if node has 1 child on the right
+        else if(search(valToRemove)->get_right() == NULL) 
+            {   // if right child is NULL go left
+                currNode->set_data(currNode->get_left()->get_data());
+                delete currNode->get_left();
+                currNode->set_left(NULL);
+                node_count--;
+            }// end else if node has 1 child on the left
+        // node has 2 children
+        else if( (search(valToRemove)->get_left() != NULL) && (search(valToRemove)->get_right() != NULL) )
+            {
+                
 
-    //if node has 1 child
-        //connect parent to next child 
-        //delete node
-
-    //if node has 2 children
-        //find largest num in left subtree
-        // or
-        //find smallest num in right subtree
-            //move to the node
-
+                
+                //find largest num in left subtree
+                // or
+                //find smallest num in right subtree
+                // replace node with min or max
+            }// end else if node has 2 children
 }
+
+
+
+
 
 
 template<class T>
