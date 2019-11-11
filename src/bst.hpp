@@ -204,44 +204,15 @@ void BST<T>::remove(T val)
 template<class T>
 void BST<T>::removeHelper(T valToRemove, Node<T>* currNode)
 {
-    // node has 0 children
-    if( (search(valToRemove)->get_left() == NULL) && (search(valToRemove)->get_right() == NULL) );
-    {
-        delete currNode;
-        currNode = NULL;
-        node_count = 0;
-    }// end if node has 0 children
-    // node has 1 child
-    else if(search(valToRemove)->get_left() == NULL)
-        {   // if left child is NULL move right
-            currNode->set_data(currNode->get_right()->get_data());
-            delete currNode->get_right();
-            currNode->set_right(NULL);
-            node_count--;
-        }// end else if node has 1 child on the right
-        else if(search(valToRemove)->get_right() == NULL) 
-            {   // if right child is NULL go left
-                currNode->set_data(currNode->get_left()->get_data());
-                delete currNode->get_left();
-                currNode->set_left(NULL);
-                node_count--;
-            }// end else if node has 1 child on the left
-        // node has 2 children
-        else if( (search(valToRemove)->get_left() != NULL) && (search(valToRemove)->get_right() != NULL) )
-            {
-                
+   
+   //node has 0 children
 
-                
-                //find largest num in left subtree
-                // or
-                //find smallest num in right subtree
-                // replace node with min or max
-            }// end else if node has 2 children
-}
+   //node has 1 child
+
+   //node has 2 children
 
 
-
-
+}// end of removeHelper function
 
 
 template<class T>
