@@ -47,7 +47,7 @@ private:
     void preorderHelper(std::vector<T>*, Node<T>*);
     void postorderHelper(std::vector<T>*, Node<T>*);
     Node<T>* searchHelper(T, Node<T>*);
-    void removeHelper(T, Node<T>*);
+    Node<T>* removeHelper(T, Node<T>*);
 };
 
 // bst constructor
@@ -202,16 +202,68 @@ void BST<T>::remove(T val)
 
 // removeHelper function to recursively traverse the tree to remove the node
 template<class T>
-void BST<T>::removeHelper(T valToRemove, Node<T>* currNode)
-{
-   
-   //node has 0 children
+Node<T>* BST<T>::removeHelper(T valToRemove, Node<T>* currNode)
+{  
+    // nothing to remove
+    if(currNode == NULL)
+    {
+        return currNode;
+    }
+    else if(valToRemove < currNode->get_data())
+        {
+            currNode->set_left(removeHelper(valToRemove, currNode->get_left()));
+        }
+        else if(valToRemove > currNode->get_data())
+            {
+                currNode->set_right(removeHelper(valToRemove, currNode->get_right()));
+            }
+    //node has 0 children
+    if( (currNode->get_left() == NULL) && (currNode->get_right() == NULL) )
+    {
+        delete currNode;
+        currNode = NULL;
+        node_count--;
+        return currNode;
+    }// end if 0 children
+    //node has 1 child
+        else if(currNode->get_left() == NULL)
+            {   // child is in right subtree
+                Node<T>* repNode = currNode->get_right();
+                delete currNode;
+                node_count--;
+                return repNode;
+            }// end if single child right
+        else if(currNode->get_right() == NULL)
+            {   // child is in left subtree
+                Node<T>* repNode = currNode->get_left();
+                delete currNode;
+                node_count--;
+                return repNode;
+            }// end if single child left
+            else if( (currNode->get_left() != NULL) && (currNode->get_right() != NULL) )
+                {   // node has 2 children
+                    Node<T>* repNode = currNode->get_left();
+                    while(repNode->get_right() != NULL)
+                    {
+                        repNode = repNode->get_right();
+                    }
+                    currNode = repNode;
+                    remove(repNode->get_data());
+                    node_count--;
+                    return currNode;
+                }
 
-   //node has 1 child
+/*
+find the largest node in left subtree
+Node<T>* repNode = new Node<T>
+repNode = currNode->left
+while(repNode->right !NULL)
+    repNode=repNode->right
+currNode->data = repNode->data
+currNode->left = delete(repNode->data, currNode->left)
 
-   //node has 2 children
-
-
+*/
+    return currNode;
 }// end of removeHelper function
 
 
