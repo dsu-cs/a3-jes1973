@@ -200,14 +200,15 @@ void BST<T>::remove(T val)
     Node<T>* parent = NULL;
     Node<T>* currNode = root;
     while(currNode != NULL)
-    {   // value found- remove the node
+    {   // check if value is found
         if(val == currNode->get_data())
         {   // found valToRemove
             if((currNode->get_left() == NULL) && (currNode->get_right() == NULL))
             {   // node has no children
-                if(val == parent->get_data())
+                if(parent == NULL)
                 {
-                    root = NULL;
+                    delete(root);
+                    //root = NULL;
                 }
                 else if(parent->get_left() == currNode)
                 {
@@ -223,7 +224,11 @@ void BST<T>::remove(T val)
             }// end if node has no children
             else if(currNode->get_left() == NULL)
                 {   // node only has right child
-                    if(parent->get_left() == currNode)
+                    if(parent == NULL)
+                        {
+                            root = currNode->get_right();
+                        }
+                    else if(parent->get_left() == currNode)
                     {
                         parent->set_left(currNode->get_right());
                     }
@@ -236,7 +241,11 @@ void BST<T>::remove(T val)
                 }// end else if node only has right child
                 else if(currNode->get_right() == NULL)
                     {   // node only has left child
-                        if(parent->get_left() == currNode)
+                        if(parent == NULL)
+                        {
+                            root = currNode->get_left();
+                        }
+                        else if(parent->get_left() == currNode)
                         {
                             parent->set_left(currNode->get_left());
                         }
@@ -257,7 +266,6 @@ void BST<T>::remove(T val)
                         T repData = repNode->get_data();
                         remove(repData);
                         currNode->set_data(repData);
-                        node_count--;
                     }// end else node has 2 children
         }// end if value found- remove the node
         // value not found yet
