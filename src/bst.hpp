@@ -200,31 +200,29 @@ void BST<T>::remove(T val)
     Node<T>* parent = NULL;
     Node<T>* currNode = root;
     while(currNode != NULL)
-    {
+    {   // value found- remove the node
         if(val == currNode->get_data())
         {   // found valToRemove
             if((currNode->get_left() == NULL) && (currNode->get_right() == NULL))
-            {   // no children
+            {   // node has no children
                 if(val == parent->get_data())
                 {
                     root = NULL;
-                    break;
                 }
                 else if(parent->get_left() == currNode)
                 {
                     delete(currNode);
                     parent->set_left(NULL);
-                    break;
                 }
                 else
                 {
                     delete(currNode);
                     parent->set_right(NULL);
-                    break;
                 }
-            }
+                node_count--;
+            }// end if node has no children
             else if(currNode->get_left() == NULL)
-                {   // has right child
+                {   // node only has right child
                     if(parent->get_left() == currNode)
                     {
                         parent->set_left(currNode->get_right());
@@ -234,9 +232,10 @@ void BST<T>::remove(T val)
                         parent->set_right(currNode->get_right());
                     }
                     delete(currNode);
-                }
+                    node_count--;
+                }// end else if node only has right child
                 else if(currNode->get_right() == NULL)
-                    {   // has left child
+                    {   // node only has left child
                         if(parent->get_left() == currNode)
                         {
                             parent->set_left(currNode->get_left());
@@ -246,14 +245,22 @@ void BST<T>::remove(T val)
                             parent->set_right(currNode->get_left());
                         }
                         delete(currNode);
-                    }
+                        node_count--;
+                    }// end else if node only has left child
                     else
                     {   // node has 2 children
-                       
-                    }
-                    break;
-
-        }
+                        Node<T>* repNode = currNode->get_right();
+                        while(repNode->get_left() != NULL)
+                        {
+                            repNode = repNode->get_left();
+                        }
+                        T repData = repNode->get_data();
+                        remove(repData);
+                        currNode->set_data(repData);
+                        node_count--;
+                    }// end else node has 2 children
+        }// end if value found- remove the node
+        // value not found yet
         else if(val > currNode->get_data())
             {   // search right
                 parent = currNode;
