@@ -225,11 +225,27 @@ void BST<T>::remove(T val)
             }
             else if(currNode->get_left() == NULL)
                 {   // has right child
-                   
+                    if(parent->get_left() == currNode)
+                    {
+                        parent->set_left(currNode->get_right());
+                    }
+                    else
+                    {
+                        parent->set_right(currNode->get_right());
+                    }
+                    delete(currNode);
                 }
                 else if(currNode->get_right() == NULL)
                     {   // has left child
-                       
+                        if(parent->get_left() == currNode)
+                        {
+                            parent->set_left(currNode->get_left());
+                        }
+                        else
+                        {
+                            parent->set_right(currNode->get_left());
+                        }
+                        delete(currNode);
                     }
                     else
                     {   // node has 2 children
