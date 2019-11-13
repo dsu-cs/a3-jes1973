@@ -197,52 +197,48 @@ Node<T>* BST<T>::searchHelper(T valToFind, Node<T>* currNode)
 template<class T>
 void BST<T>::remove(T val)
 {
-    removeHelper(val, root);
-}// end of remove function
-
-// removeHelper function to recursively traverse the tree to remove the node
-template<class T>
-Node<T>* BST<T>::removeHelper(T valToRemove, Node<T>* currNode)
-{
     Node<T>* parent = NULL;
+    Node<T>* currNode = root;
     while(currNode != NULL)
     {
-        if(valToRemove == currNode->get_data())
+        if(val == currNode->get_data())
         {   // found valToRemove
             if((currNode->get_left() == NULL) && (currNode->get_right() == NULL))
             {   // no children
-                delete(currNode);
-                currNode = NULL;
-                return parent;
+                if(val == parent->get_data())
+                {
+                    root = NULL;
+                    break;
+                }
+                else if(parent->get_left() == currNode)
+                {
+                    delete(currNode);
+                    parent->set_left(NULL);
+                    break;
+                }
+                else
+                {
+                    delete(currNode);
+                    parent->set_right(NULL);
+                    break;
+                }
             }
             else if(currNode->get_left() == NULL)
                 {   // has right child
-                    parent->set_left(currNode->get_right());
-                    delete(currNode);
-                    return parent;
+                   
                 }
                 else if(currNode->get_right() == NULL)
                     {   // has left child
-                        parent->set_right(currNode->get_left());
-                        delete(currNode);
-                        return parent;
+                       
                     }
                     else
                     {   // node has 2 children
-                        Node<T>* repNode = currNode->get_right();
-                        T repData = 0;
-                        while(repNode->get_left() != NULL)
-                        {
-                            repNode = repNode->get_left();
-                        }
-                        repData = repNode->get_data();
-                        removeHelper(repData, currNode);
-                        currNode->set_data(repData);
-                        return currNode;
+                       
                     }
+                    break;
 
         }
-        else if(valToRemove > currNode->get_data())
+        else if(val > currNode->get_data())
             {   // search right
                 parent = currNode;
                 currNode = currNode->get_right();
@@ -252,21 +248,8 @@ Node<T>* BST<T>::removeHelper(T valToRemove, Node<T>* currNode)
                 parent = currNode;
                 currNode = currNode->get_left();
             }// end search left
-    }
-
-/*
-find the largest node in left subtree
-Node<T>* repNode = new Node<T>
-repNode = currNode->left
-while(repNode->right !NULL)
-    repNode=repNode->right
-currNode->data = repNode->data
-currNode->left = delete(repNode->data, currNode->left)
-
-*/
-    return currNode;
-}// end of removeHelper function
-
+    }// end of while
+}// end of remove function
 
 template<class T>
 int BST<T>::get_size()
