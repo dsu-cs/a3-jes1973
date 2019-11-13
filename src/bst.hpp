@@ -203,55 +203,56 @@ void BST<T>::remove(T val)
 // removeHelper function to recursively traverse the tree to remove the node
 template<class T>
 Node<T>* BST<T>::removeHelper(T valToRemove, Node<T>* currNode)
-{  
-    // nothing to remove
-    if(currNode == NULL)
+{
+    Node<T>* parent = NULL;
+    while(currNode != NULL)
     {
-        return currNode;
-    }
-    else if(valToRemove < currNode->get_data())
-        {
-            currNode->set_left(removeHelper(valToRemove, currNode->get_left()));
+        if(valToRemove == currNode->get_data())
+        {   // found valToRemove
+            if((currNode->get_left() == NULL) && (currNode->get_right() == NULL))
+            {   // no children
+                delete(currNode);
+                currNode = NULL;
+                return parent;
+            }
+            else if(currNode->get_left() == NULL)
+                {   // has right child
+                    parent->set_left(currNode->get_right());
+                    delete(currNode);
+                    return parent;
+                }
+                else if(currNode->get_right() == NULL)
+                    {   // has left child
+                        parent->set_right(currNode->get_left());
+                        delete(currNode);
+                        return parent;
+                    }
+                    else
+                    {   // node has 2 children
+                        Node<T>* repNode = currNode->get_right();
+                        T repData = 0;
+                        while(repNode->get_left() != NULL)
+                        {
+                            repNode = repNode->get_left();
+                        }
+                        repData = repNode->get_data();
+                        removeHelper(repData, currNode);
+                        currNode->set_data(repData);
+                        return currNode;
+                    }
+
         }
         else if(valToRemove > currNode->get_data())
-            {
-                currNode->set_right(removeHelper(valToRemove, currNode->get_right()));
-            }
-    //node has 0 children
-    if( (currNode->get_left() == NULL) && (currNode->get_right() == NULL) )
-    {
-        delete currNode;
-        currNode = NULL;
-        node_count--;
-        return currNode;
-    }// end if 0 children
-    //node has 1 child
-        else if(currNode->get_left() == NULL)
-            {   // child is in right subtree
-                Node<T>* repNode = currNode->get_right();
-                delete currNode;
-                node_count--;
-                return repNode;
-            }// end if single child right
-        else if(currNode->get_right() == NULL)
-            {   // child is in left subtree
-                Node<T>* repNode = currNode->get_left();
-                delete currNode;
-                node_count--;
-                return repNode;
-            }// end if single child left
-            else if( (currNode->get_left() != NULL) && (currNode->get_right() != NULL) )
-                {   // node has 2 children
-                    Node<T>* repNode = currNode->get_left();
-                    while(repNode->get_right() != NULL)
-                    {
-                        repNode = repNode->get_right();
-                    }
-                    currNode = repNode;
-                    remove(repNode->get_data());
-                    node_count--;
-                    return currNode;
-                }
+            {   // search right
+                parent = currNode;
+                currNode = currNode->get_right();
+            }// end search right
+            else 
+            {   // search left
+                parent = currNode;
+                currNode = currNode->get_left();
+            }// end search left
+    }
 
 /*
 find the largest node in left subtree
