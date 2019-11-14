@@ -207,19 +207,20 @@ void BST<T>::remove(T val)
             {   // node has no children
                 if(parent == NULL)
                 {
-                    delete(root);
-                    //root = NULL;
+                    //delete(currNode);
+                    root = NULL;
                 }
                 else if(parent->get_left() == currNode)
                 {
-                    delete(currNode);
+                    //delete(currNode);
                     parent->set_left(NULL);
                 }
-                else
+                else if(parent->get_right() == currNode)
                 {
-                    delete(currNode);
+                    //delete(currNode);
                     parent->set_right(NULL);
                 }
+                delete(currNode);
                 node_count--;
             }// end if node has no children
             else if(currNode->get_left() == NULL)
