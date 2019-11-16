@@ -29,28 +29,23 @@ int main()
     data.push_back(66);
     data.push_back(55);
 
-cout<<"1st Fill data:"<<endl;
     for(i=0;i<data.size();i++)
     {
-        cout<<"iter: "<<i<<" insert: "<<data[i]<<endl;
         bst.insert(data[i]);
     }
-cout<<endl<<"1st remove loop"<<endl;
+
     for(i=0;i<data.size();i++)
     {
-        cout<<"node count: "<<bst.get_size()<<" iteration: "<<i<<" data to remove: "<<data[i]<<endl;
         bst.remove(data[i]);
     }
-cout<<"2nd Fill data:"<<endl;
+
     for(i=0;i<data.size();i++)
     {
-        cout<<"iter: "<<i<<" insert: "<<data[i]<<endl;
         bst.insert(data[i]);
     }
-cout<<endl<<"2nd remove loop"<<endl;
+
     for(i=0;i<data.size();i++)
     {
-        cout<<"node count: "<<bst.get_size()<<" iteration: "<<i<<" data to remove: "<<data[i]<<endl;
         bst.remove(data[i]);
     }
 
