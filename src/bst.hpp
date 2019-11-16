@@ -74,6 +74,7 @@ template<class T>
 void BST<T>::insert(T new_data)
 {
     root = insertHelper(new_data, root);
+    node_count++;
     cout<<"count "<<node_count<<endl;
 }// end insert function
 
@@ -83,13 +84,14 @@ Node<T>* BST<T>::insertHelper(int data, Node<T>* currNode)
 {
     // if tree is empty- create a new node and return it
     if(currNode == NULL)
-    {
-        Node<T>* tmp = new Node<T>;
-        tmp->set_data(data);
-        tmp->set_left(NULL);
-        tmp->set_right(NULL);
-        node_count++;
-        return tmp;
+    {   
+        return new Node<T>(data);
+        //Node<T>* tmp = new Node<T>;
+        //tmp->set_data(data);
+        //tmp->set_left(NULL);
+        //tmp->set_right(NULL);
+        //node_count++;
+        //return tmp;
     }// new node created and returned
     // if new data is less than currNode data move left
     else if(data < currNode->get_data())
